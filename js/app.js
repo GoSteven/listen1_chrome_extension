@@ -898,6 +898,24 @@
           $timeout(function(){angularPlayer.adjustVolume(false);});
         }
       });
+
+      hotkeys.add({
+         combo: 'a',
+         description: 'Download',
+         callback: function() {
+           $timeout(function(){
+             function downloadURI(uri, name) {
+               var link = document.createElement("a");
+               link.download = name;
+               link.href = uri;
+               link.click();
+             }
+             var sound = soundManager.getSoundById(angularPlayer.getCurrentTrack());
+             var track = angularPlayer.getTrack(angularPlayer.getCurrentTrack());
+             downloadURI(sound.url, track.title + ' - ' + track.artist + ' - ' + track.album);
+           });
+         }
+       });
   }]);
 
   app.controller('InstantSearchController', ['$scope', '$http', '$timeout', 'angularPlayer', 'loWeb',
